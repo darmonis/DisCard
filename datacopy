@@ -1,0 +1,4 @@
+{ id: "c_001", nombre: "Juanito Banana", rareza: "Comun", desc: "Un ladrón egipcio.", img: "assets/img/JuanComun.png" },
+        { id: "c_002", nombre: "Goblin", rareza: "Comun", desc: "Pequeño y molesto.", img: "assets/img/goblin.png" },
+        { id: "r_001", nombre: "NoPainNoGain", rareza: "Poco Comun", desc: "No tiene frio.", img: "assets/img/JuanPocoComun.png" },
+        { id: "e_001", nombre: "MagoAlfalo", rareza: "Epica", desc: "Extrae la magia de una antigua reliquia.", img: "assets/img/JuanEpica.png" }

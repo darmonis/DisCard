@@ -1,0 +1,133 @@
+const GAME_DATA = {
+    config: {
+        costoSobre: 100,
+        monedaInicial: 500,
+        cartasPorSobre: 3
+    },
+    // --- CÓDIGOS PROMOCIONALES (NUEVO) ---
+    // Formato: "CÓDIGO": Valor
+    codigos: {
+        // Códigos Base
+        "MONIS200": 200,
+        "MONIS300": 300,
+        "MONIS400": 400,
+        "MONIS500": 500,
+        
+        // Variaciones Creativas
+        "SUPERMONIS": 450,
+        "MEGAMONIS": 480,
+        "DAMEMONIS": 250,
+        "MASMONIS": 350,
+        "MONISFREE": 220,
+        "MONISNOW": 280,
+        "MONISPLUS": 320,
+        "MONISPRO": 420,
+        "MONISGIFT": 210,
+        "TOPMONIS": 490,
+        "MONISWIN": 410,
+        "EXTRAMONIS": 330,
+        "ULTRAMONIS": 500,
+        "MONIS4U": 240,
+        "MONISFAST": 270,
+        "LOVEMONIS": 310,
+
+        // Códigos Especiales (Admin/Logros)
+        "PLATINO": 20000,
+       
+    },
+    // --- COLECCIÓN DE CARTAS ---
+    cartas: [
+        { id: "c_001", nombre: "Juanito Banana", rareza: "Comun", desc: "Un ladrón egipcio.", img: "assets/img/JuanComun.png" },
+        { id: "c_002", nombre: "Canarias O Canario", rareza: "Comun", desc: "Ni sentado ni de pie", img: "assets/img/CanarioComun.png" },
+        { id: "c_003", nombre: "Al Cesar lo del Cesar", rareza: "Comun", desc: "Trade request", img: "assets/img/CesarComun.png" },
+        { id: "c_004", nombre: "Razgriz...", rareza: "Comun", desc: "Un nuevo personaje se ha conectado", img: "assets/img/RazgrizComun.png" },
+        { id: "c_005", nombre: "Heisenbol", rareza: "Comun", desc: "He hecho 5 masas químicas para 5 pizzas", img: "assets/img/PeibolComun.png" },
+        { id: "c_006", nombre: "Kun Fu Panda", rareza: "Comun", desc: "Buscas pelea, yo te mato", img: "assets/img/LembranzaComun.png" },
+        { id: "c_007", nombre: "Parfua", rareza: "Comun", desc: "Mi propio perfume gente", img: "assets/img/JorgeComun.png" },
+        { id: "c_008", nombre: "TeleRiva", rareza: "Comun", desc: "Hoy fue un día muy duro", img: "assets/img/RivaComun.png" },
+        { id: "c_009", nombre: "Soul Kitchen", rareza: "Comun", desc: "un día tranquilo", img: "assets/img/EnceboComun.png" },
+        { id: "c_010", nombre: "MediaMarcos", rareza: "Comun", desc: "Me quiero matar", img: "assets/img/DarmonisComun.png" },
+        { id: "c_011", nombre: "The Stalker", rareza: "Comun", desc: "Así que acabas de empezar una serie", img: "assets/img/JrComun.png" },
+        { id: "r_001", nombre: "NoPainNoGain", rareza: "Poco Comun", desc: "No tiene frio.", img: "assets/img/JuanPocoComun.png" },
+        { id: "r_002", nombre: "Lothor", rareza: "Poco Comun", desc: "Suavemente Fuerte", img: "assets/img/LothorComun.png" },
+        { id: "r_003", nombre: "El salvador", rareza: "Poco Comun", desc: "Con Nilo en el Nilo", img: "assets/img/PeibolPocoComun.png" },
+        { id: "r_004", nombre: "Correos Express", rareza: "Poco Comun", desc: "Entre Café y Café", img: "assets/img/LembranzaPocoComun.png" },
+        { id: "r_005", nombre: "O Casador", rareza: "Poco Comun", desc: "Crocodilo Matarilo", img: "assets/img/JorgePocoComun.png" },
+        { id: "r_006", nombre: "StreetRiva", rareza: "Poco Comun", desc: "Represento a la comunidad fighter", img: "assets/img/RivaPocoComun.png" },
+        { id: "r_007", nombre: "MagicDenis", rareza: "Poco Comun", desc: "No no, estoy genial", img: "assets/img/DenisPocoComun.png" },
+        { id: "r_008", nombre: "Friendly Driver", rareza: "Poco Comun", desc: "Dije que iba yo", img: "assets/img/EnceboPocoComun.png" },
+        { id: "r_009", nombre: "Magiskera", rareza: "Poco Comun", desc: "Levantando España", img: "assets/img/MosqueraPocoComun.png" },
+        { id: "r_010", nombre: "FisherMonis", rareza: "Poco Comun", desc: "Voy a por unos chocos", img: "assets/img/DarmonisPocoComun.png" },
+        { id: "r_011", nombre: "Jose Racism", rareza: "Poco Comun", desc: "Los chinos, los indios, los mo...", img: "assets/img/JrPocoComun.png" },
+        { id: "e_001", nombre: "MagoAlfalo", rareza: "Epica", desc: "Extrae la magia de una antigua reliquia.", img: "assets/img/JuanEpica.png" },
+        { id: "e_002", nombre: "Ave de Guerra", rareza: "Epica", desc: "Always On", img: "assets/img/WarEpica.png" },
+        { id: "e_003", nombre: "Pollo", rareza: "Epica", desc: "Código CryptoOka", img: "assets/img/JositoEpica.png" },
+        { id: "e_004", nombre: "Peibol", rareza: "Epica", desc: "Visitando a Vane", img: "assets/img/PeibolEpica.png" },
+        { id: "e_005", nombre: "1 Botella de Jagger", rareza: "Epica", desc: "Y si me equivoco de cama, QUE", img: "assets/img/LembranzaEpica.png" },
+        { id: "e_006", nombre: "Devil's Love", rareza: "Epica", desc: "Gente estais condenados", img: "assets/img/JorgeEpica.png" },
+        { id: "e_007", nombre: "Diamond Denis", rareza: "Epica", desc: "Que yo maté a Rekkles", img: "assets/img/DenisEpica.png" },
+        { id: "e_008", nombre: "Encebo's Love", rareza: "Epica", desc: "Y de cara guapa", img: "assets/img/EnceboEpica.png" },
+        { id: "e_009", nombre: "Leonardo Mosquera", rareza: "Epica", desc: "Y de brocha gorda", img: "assets/img/MosqueraEpica.png" },
+        { id: "e_010", nombre: "Doctor Darmonis", rareza: "Epica", desc: "Vuestro pasado, presente y futuro", img: "assets/img/DarmonisEpica.png" },
+        { id: "e_011", nombre: "Auxilio JR", rareza: "Epica", desc: "Eres demasiado débil", img: "assets/img/JrEpica.png" },
+        
+        
+        // ... Puedes añadir más aquí 
+    ],
+
+    // --- TRIVIAL / QUIZ (50 Preguntas) ---
+    // Estructura: P: Pregunta, R: [Correcta, Incorrecta, Incorrecta, Incorrecta]
+    // El script se encargará de desordenarlas visualmente.
+    quiz: [
+        { p: "¿Cuál es el código de Konami original?", r: ["Arriba, Arriba, Abajo, Abajo, Izq, Der, Izq, Der, B, A", "Arriba, Abajo, L1, R1, A, B, Start", "A, B, A, C, A, B, B", "IDDQD"] },
+        { p: "¿En qué año se lanzó la primera PlayStation en Japón?", r: ["1994", "1995", "1993", "1996"] },
+        { p: "¿Qué significa 'FPS' en el contexto de rendimiento gráfico?", r: ["Frames Per Second", "First Person Shooter", "Fields Per Section", "Frequency Processing System"] },
+        { p: "¿Cuál es la capital de Australia?", r: ["Canberra", "Sídney", "Melbourne", "Brisbane"] },
+        { p: "¿Qué motor gráfico utiliza el juego 'Half-Life 2'?", r: ["Source", "GoldSrc", "Unreal Engine 2", "id Tech 4"] },
+        { p: "¿Quién es el creador del lenguaje de programación Python?", r: ["Guido van Rossum", "James Gosling", "Bjarne Stroustrup", "Dennis Ritchie"] },
+        { p: "¿Qué compañía desarrolló 'Fallout: New Vegas'?", r: ["Obsidian Entertainment", "Bethesda Game Studios", "Interplay", "Black Isle Studios"] },
+        { p: "¿Cuál es el elemento químico más abundante en el universo?", r: ["Hidrógeno", "Oxígeno", "Carbono", "Helio"] },
+        { p: "¿Qué significa la sigla 'NPC' en videojuegos?", r: ["Non-Playable Character", "Non-Personal Computer", "New Player Class", "Network Protocol Control"] },
+        { p: "¿En qué juego aparece la frase 'Would you kindly?'", r: ["BioShock", "System Shock 2", "Dishonored", "Prey"] },
+        { p: "¿Cuál es el hueso más largo del cuerpo humano?", r: ["Fémur", "Tibia", "Húmero", "Radio"] },
+        { p: "¿Qué tarjeta gráfica lanzó NVIDIA con la arquitectura 'Pascal'?", r: ["GTX 1080", "RTX 2080", "GTX 980", "RTX 3090"] },
+        { p: "¿Cómo se llama el protagonista de 'The Legend of Zelda'?", r: ["Link", "Zelda", "Ganon", "Epona"] },
+        { p: "¿Qué país tiene la mayor cantidad de islas en el mundo?", r: ["Suecia", "Indonesia", "Filipinas", "Canadá"] },
+        { p: "¿Qué significa 'HTTP'?", r: ["HyperText Transfer Protocol", "High Transfer Text Protocol", "HyperText Transmission Process", "Host Text Transfer Protocol"] },
+        { p: "¿Cuál fue el primer videojuego comercialmente exitoso?", r: ["Pong", "Tetris", "Space Invaders", "Pac-Man"] },
+        { p: "¿Qué unidad mide la frecuencia del procesador?", r: ["Hertz", "Bytes", "Flops", "Watts"] },
+        { p: "¿En qué año cayó el Muro de Berlín?", r: ["1989", "1991", "1987", "1990"] },
+        { p: "¿Cómo se llama el hermano de Mario?", r: ["Luigi", "Wario", "Waluigi", "Toad"] },
+        { p: "¿Qué empresa compró a Mojang (Minecraft) en 2014?", r: ["Microsoft", "Sony", "EA", "Activision"] },
+        { p: "¿Cuál es el planeta más grande del sistema solar?", r: ["Júpiter", "Saturno", "Neptuno", "Urano"] },
+        { p: "¿Qué es un 'Speedrun'?", r: ["Terminar un juego lo más rápido posible", "Jugar con la velocidad aumentada", "Correr dentro del juego", "Un tipo de procesador rápido"] },
+        { p: "¿Qué juego popularizó el género 'Battle Royale'?", r: ["PUBG", "Fortnite", "H1Z1", "Apex Legends"] },
+        { p: "¿Quién pintó 'La noche estrellada'?", r: ["Vincent van Gogh", "Pablo Picasso", "Claude Monet", "Salvador Dalí"] },
+        { p: "¿Qué significa 'RAM'?", r: ["Random Access Memory", "Read Access Memory", "Rapid Access Module", "Run Active Memory"] },
+        { p: "¿Cuál es el río más largo del mundo?", r: ["Amazonas", "Nilo", "Yangtsé", "Misisipi"] },
+        { p: "¿Qué personaje de videojuego es conocido como 'Blue Blur'?", r: ["Sonic", "Mega Man", "Sly Cooper", "Sub-Zero"] },
+        { p: "¿En qué guerra se ambienta 'Call of Duty: World at War'?", r: ["Segunda Guerra Mundial", "Primera Guerra Mundial", "Guerra de Vietnam", "Guerra Fría"] },
+        { p: "¿Qué es el 'Ray Tracing'?", r: ["Trazado de rayos de luz en tiempo real", "Una técnica de dibujo a mano", "Un sistema de sonido envolvente", "Un tipo de monitor"] },
+        { p: "¿Cuál es la moneda oficial de Japón?", r: ["Yen", "Won", "Yuan", "Baht"] },
+        { p: "¿Qué compañía creó la consola Dreamcast?", r: ["Sega", "Nintendo", "Sony", "Atari"] },
+        { p: "¿Cómo se llama el mundo donde ocurre 'The Elder Scrolls V: Skyrim'?", r: ["Nirn", "Tamriel", "Skyrim", "Azeroth"] },
+        { p: "¿Quién escribió '1984'?", r: ["George Orwell", "Aldous Huxley", "Ray Bradbury", "Isaac Asimov"] },
+        { p: "¿Qué significa 'GG' al final de una partida?", r: ["Good Game", "Get Good", "Go Green", "God Gift"] },
+        { p: "¿Cuál es el océano más grande?", r: ["Pacífico", "Atlántico", "Índico", "Ártico"] },
+        { p: "¿Qué juego introdujo el sistema de 'Active Time Battle' (ATB)?", r: ["Final Fantasy IV", "Chrono Trigger", "Dragon Quest", "Persona 3"] },
+        { p: "¿Qué es un 'Easter Egg' en software?", r: ["Una función o mensaje oculto", "Un error crítico", "Un virus informático", "Una actualización de pascua"] },
+        { p: "¿Quién es el antagonista principal en 'Final Fantasy VII'?", r: ["Sephiroth", "Kefka", "Ultimecia", "Kuja"] },
+        { p: "¿Qué gas respiran las plantas durante la fotosíntesis?", r: ["Dióxido de carbono", "Oxígeno", "Nitrógeno", "Metano"] },
+        { p: "¿Qué estudio desarrolló 'The Witcher 3'?", r: ["CD Projekt Red", "BioWare", "Ubisoft", "Capcom"] },
+        { p: "¿Cuál es la resolución de 4K UHD?", r: ["3840 x 2160", "1920 x 1080", "2560 x 1440", "7680 x 4320"] },
+        { p: "¿Qué es 'Lag'?", r: ["Retardo en la comunicación del servidor", "Bajos FPS", "Un error gráfico", "Un jugador tramposo"] },
+        { p: "¿En qué año se lanzó el primer iPhone?", r: ["2007", "2005", "2009", "2008"] },
+        { p: "¿Qué significa 'RPG'?", r: ["Role-Playing Game", "Real Player Game", "Rapid Pulse Gun", "Racing Pro Game"] },
+        { p: "¿Cuál es la montaña más alta del mundo?", r: ["Everest", "K2", "Kangchenjunga", "Lhotse"] },
+        { p: "¿Qué juego indie fue creado por una sola persona llamada Toby Fox?", r: ["Undertale", "Celeste", "Hollow Knight", "Stardew Valley"] },
+        { p: "¿Qué es el 'Konami Code'?", r: ["Un truco clásico de videojuegos", "Un lenguaje de programación", "Un error de hardware", "El código fuente de Metal Gear"] },
+        { p: "¿Qué personaje dice 'It's-a me, Mario!'?", r: ["Mario", "Luigi", "Wario", "Yoshi"] },
+        { p: "¿Cuál es el material más duro de la escala de Mohs?", r: ["Diamante", "Corindón", "Topacio", "Cuarzo"] },
+        { p: "¿Qué consola introdujo el control por movimiento masivo?", r: ["Wii", "Kinect", "PlayStation Move", "EyeToy"] }
+    ]
+};

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DisCard - Alpha Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="header">
+        <div class="header-left">
+            <img src="assets/img/logo.png" alt="DisCard Logo" class="game-logo">
+            
+            <button class="btn-icon" onclick="toggleStats()" style="margin-top:5px; font-size: 0.8rem; border-color: #eecfa1;">📊 Stats</button>
+            <div id="credits-badge"><span id="credits-display">CR: 0</span></div>
+        </div>
+        <div class="header-right">
+            <div class="top-controls">
+                <button id="btn-music" class="btn-icon" onclick="toggleMusica()">🔇 Música: OFF</button>
+                <div class="save-controls">
+                    <button class="btn btn-save" onclick="guardarPartidaManual()">💾 Guardar</button>
+                    <button class="btn btn-load" onclick="document.getElementById('load-file').click()">📂 Cargar</button>
+                    <input type="file" id="load-file" style="display: none;" onchange="cargarPartida(this)">
+                </div>
+            </div>
+            <div class="code-area">
+                <input type="text" id="input-code" placeholder="Código..." autocomplete="off">
+                <button class="btn btn-code" onclick="canjearCodigo()">Canjear</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-area">
+        <div class="buy-section">
+            <button class="btn btn-buy" onclick="iniciarApertura()">Comprar Sobre (100 CR)</button>
+            <button class="btn btn-quiz" onclick="abrirQuiz()">🧠 Misión Técnica (+CR)</button>
+        </div>
+
+        <div class="filter-bar">
+            <input type="text" id="search-input" placeholder="🔍 Buscar carta..." oninput="aplicarFiltros()">
+            <select id="rarity-filter" onchange="aplicarFiltros()">
+                <option value="all">Todas las Rarezas</option>
+                <option value="Comun">Común</option>
+                <option value="Poco Comun">Poco Común</option>
+                <option value="Epica">Épica</option>
+            </select>
+        </div>
+
+        <h2 class="album-title">Tu Álbum (<span id="count-display">0/50</span>)</h2>
+        <div id="album" class="card-container"></div>
+    </div>
+
+    <div id="pack-overlay">
+        <div id="particles-container"></div>
+        <div id="pack-content">
+            <h2 id="pack-msg" style="color: white; margin-bottom: 20px; text-shadow: 0 0 10px black;">¡Haz click para abrir!</h2>
+            <div id="pack-visual" class="pack" onclick="abrirSobre()">
+                <div class="pack-decoration">?</div>
+            </div>
+            <div id="opened-cards" class="card-container"></div>
+            <button id="btn-close-pack" class="btn btn-collect" style="display: none; margin-top: 30px;" onclick="cerrarSobre()">✨ Recoger Todo ✨</button>
+        </div>
+    </div>
+
+    <div id="card-modal" onclick="cerrarModal(event)"><div class="modal-content"><span class="close-btn">&times;</span><div id="modal-card-container"></div></div></div>
+    
+    <div id="quiz-modal">
+        <div class="quiz-content">
+            <h2 style="color: #eecfa1; border-bottom: 1px solid #5a3e2b; padding-bottom: 10px;">Pregunta Técnica</h2>
+            <div class="timer-container"><div id="quiz-timer-bar" class="timer-bar"></div></div>
+            <div id="quiz-question-text" class="quiz-question">Cargando...</div>
+            <div id="quiz-options-container" class="quiz-options"></div>
+            <div id="quiz-feedback" class="quiz-result"></div>
+            <button id="btn-close-quiz" class="btn" style="margin-top: 20px; display: none;" onclick="cerrarQuiz()">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="coin-modal">
+        <div class="coin-content">
+            <h2>¿Doble o Nada?</h2>
+            <p>Has conseguido <span id="gamble-amount" style="color:#ffd700; font-weight:bold;">0</span> CR.</p>
+            <p style="font-size: 0.9rem; margin-bottom: 20px;">¿Quieres arriesgarlo todo a un lanzamiento?</p>
+            
+            <div id="coin-visual" class="coin">
+                <div class="side heads"></div>
+                <div class="side tails"></div>
+            </div>
+
+            <div id="coin-controls" style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
+                <button class="btn btn-collect" onclick="jugarDoble()">¡JUGAR!</button>
+                <button class="btn" style="background:#6c757d; color: white;" onclick="retirarseDoble()">Retirarse</button>
+            </div>
+            <div id="coin-result" style="margin-top: 15px; min-height: 20px;"></div>
+        </div>
+    </div>
+
+    <div id="video-overlay">
+        <div class="video-container">
+            <h1 id="video-title">¡ENHORABUENA!</h1>
+            <video id="milestone-video" controls disablePictureInPicture controlsList="nodownload noplaybackrate">
+                Tu navegador no soporta vídeo.
+            </video>
+            <button class="btn btn-collect" style="margin-top: 20px;" onclick="cerrarVideoMilestone()">Continuar</button>
+        </div>
+    </div>
+
+    <div id="stats-panel">
+        <button class="close-stats" onclick="toggleStats()">×</button>
+        <h2>Estadísticas</h2>
+        <div class="stat-item">
+            <span>Sobres Abiertos:</span>
+            <strong id="stat-packs">0</strong>
+        </div>
+        <div class="stat-item">
+            <span>Créditos Gastados:</span>
+            <strong id="stat-spent">0</strong>
+        </div>
+        <div class="stat-item">
+            <span>Doble o Nada jugados:</span>
+            <strong id="stat-gambles">0</strong>
+        </div>
+        <div class="stat-item" style="display:block; margin-top: 20px;">
+            <span>Carta más repetida:</span><br>
+            <strong id="stat-fav-card" style="color: #ffd700; font-size: 0.9rem;">-</strong>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="vanilla-tilt.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
